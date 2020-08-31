@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_clientes/common/custom_drawer/custom_drawer.dart';
+import 'package:gestao_clientes/models/page_maneger.dart';
+import 'package:provider/provider.dart';
 
 /*
 Classe responsável por controlar o fluxo de telas no aplicativo
@@ -10,25 +12,39 @@ class BaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: pageController,
-      physics: const NeverScrollableScrollPhysics(), //Impedindo scroll entre telas
-      children: <Widget>[
-        Scaffold(
-          drawer: CustomDrawer(),
-          appBar: AppBar(
-            title: const Text("home"),
+    return 
+      Provider(
+        create: (_) => PageManeger(pageController),
+        child: PageView(
+        controller: pageController,
+        physics: const NeverScrollableScrollPhysics(), //Impedindo scroll entre telas
+        children: <Widget>[
+          Scaffold(
+            drawer: CustomDrawer(),
+            appBar: AppBar(
+              title: const Text("Home"),
+            ),
           ),
-        ),
-        Container(
-          color: Colors.red),
-        Container(
-          color: Colors.yellow,
-        ),
-        Container(
-          color: Colors.green,
-        ),
-      ],
-    );
+          Scaffold(
+            drawer: CustomDrawer(),
+            appBar: AppBar(
+              title: const Text("Clientes"),
+            ),
+          ),
+          Scaffold(
+            drawer: CustomDrawer(),
+            appBar: AppBar(
+              title: const Text("Financiamento"),
+            ),
+          ),
+          Scaffold(
+            drawer: CustomDrawer(),
+            appBar: AppBar(
+              title: const Text("Localização"),
+            ),
+          ),
+        ],
+    ),
+      );
   }
 }
